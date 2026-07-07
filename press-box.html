@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press Box — Wyatt Race</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#4B9CD3;
+  --blue-deep:#2E6D9E;
+  --ink:#14213D;
+  --white:#FFFFFF;
+  --paper:#FBFCFE;
+  --line: rgba(20,33,61,0.12);
+  --line-soft: rgba(20,33,61,0.08);
+  --muted:#5A6A82;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+a{color:inherit; text-decoration:none;}
+.wrap{max-width:1100px; margin:0 auto; padding:0 32px; width:100%;}
+main{flex:1;}
+.mono{font-family:'IBM Plex Mono', monospace;}
+h1,h2,h3{font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em;}
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11.5px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--blue-deep);
+  font-weight:500;
+  display:block;
+}
+
+/* ---------- NAV ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(251,252,254,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px;}
+.brand{font-family:'Fraunces', serif; font-size:18px; font-weight:600; color:var(--ink);}
+.navlinks{display:flex; gap:26px; font-size:13.5px; font-weight:500; color:var(--muted);}
+.navlinks a{transition:color .15s ease; padding-bottom:3px; border-bottom:2px solid transparent;}
+.navlinks a:hover{color:var(--blue-deep);}
+.navlinks a.active{color:var(--ink); border-color:var(--blue);}
+.nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:8px;}
+.nav-toggle span{display:block; width:20px; height:2px; background:var(--ink); margin:5px 0;}
+@media(max-width:760px){
+  .navlinks{
+    position:fixed; top:60px; left:0; right:0; flex-direction:column; gap:0;
+    background:var(--paper); border-bottom:1px solid var(--line-soft);
+    max-height:0; overflow:hidden; transition:max-height .25s ease;
+  }
+  .navlinks.open{max-height:340px;}
+  .navlinks a{padding:15px 32px; border-bottom:1px solid var(--line-soft); width:100%;}
+  .nav-toggle{display:block;}
+}
+
+/* ---------- HOME HERO ---------- */
+.hero{padding:64px 0 90px;}
+.hero-inner{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:center;}
+@media(max-width:820px){ .hero-inner{grid-template-columns:1fr;} }
+.hero-photo{
+  position:relative; border-radius:6px; overflow:hidden;
+  aspect-ratio: 4/5; background:var(--line-soft);
+}
+.hero-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+.hero h1{font-size:clamp(38px,5.4vw,58px); line-height:1.02; color:var(--ink);}
+.hero-sub{margin-top:18px; font-size:17px; max-width:480px; color:var(--muted);}
+.position-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;}
+.position-tags span{
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+  border:1px solid var(--line); color:var(--blue-deep);
+  padding:6px 12px; border-radius:3px; background:rgba(75,156,211,0.06);
+}
+.hero-bio{margin-top:26px; font-size:15.5px; color:#33415c; max-width:480px;}
+.hero-cta{margin-top:30px; display:flex; gap:12px; flex-wrap:wrap;}
+.btn{
+  font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:500;
+  letter-spacing:.02em; padding:12px 20px; border-radius:3px;
+  display:inline-flex; align-items:center; gap:8px; border:1px solid transparent;
+  transition:opacity .15s ease;
+}
+.btn-solid{background:var(--blue); color:var(--white);}
+.btn-outline{border-color:var(--line); color:var(--ink);}
+.btn:hover{opacity:.8;}
+
+/* ---------- SUBPAGE HEADER ---------- */
+.page-header{padding:64px 0 40px; border-bottom:1px solid var(--line);}
+.page-header h1{font-size:clamp(32px,4.5vw,46px); margin-top:10px;}
+.page-header p{margin-top:14px; font-size:15.5px; color:var(--muted); max-width:520px;}
+.page-body{padding:50px 0 80px;}
+
+/* ---------- EXPERIENCE ---------- */
+.role{
+  display:grid; grid-template-columns:110px 1fr; gap:22px;
+  padding:26px 0; border-top:1px solid var(--line-soft);
+}
+.role:first-child{border-top:none;}
+@media(max-width:600px){ .role{grid-template-columns:1fr;} }
+.role .when{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted); padding-top:4px;}
+.role-body{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start;}
+@media(max-width:600px){ .role-body{grid-template-columns:1fr;} }
+.role h3{font-size:19px; color:var(--ink); margin-bottom:4px; font-weight:600; letter-spacing:0;}
+.role .org{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--blue-deep); margin-bottom:10px;}
+.role ul{padding-left:17px; font-size:14.5px; color:#33415c;}
+.role li{margin-bottom:5px;}
+.role-photo{width:130px; height:96px; border-radius:4px; overflow:hidden; flex-shrink:0;}
+.role-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+@media(max-width:600px){ .role-photo{width:100%; height:170px; margin-top:12px;} }
+
+/* ---------- CREDENTIALS ---------- */
+.cred-list{display:flex; flex-direction:column;}
+.cred{
+  display:grid; grid-template-columns:70px 1fr; gap:20px;
+  padding:22px 0; border-top:1px solid var(--line-soft);
+}
+.cred:first-child{border-top:none;}
+.cred .g{font-family:'Fraunces',serif; font-size:22px; color:var(--blue-deep); font-weight:600;}
+.cred p strong{color:var(--ink);}
+.cred p{font-size:14.5px; color:var(--muted);}
+
+/* ---------- PRESS BOX / BLOG ---------- */
+.blog-toolbar{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:30px; flex-wrap:wrap;}
+.blog-toolbar .note{font-size:13px; color:var(--muted); max-width:420px;}
+.new-post-btn{
+  background:var(--ink); color:var(--white);
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500;
+  padding:10px 16px; border-radius:3px; border:none; cursor:pointer;
+}
+.new-post-btn:hover{background:var(--blue-deep);}
+.post-form{display:none; border:1px solid var(--line); border-radius:4px; padding:22px; margin-bottom:30px; background:var(--white);}
+.post-form.open{display:block;}
+.post-form input, .post-form select, .post-form textarea{
+  width:100%; font-family:'Inter',sans-serif; font-size:14.5px;
+  padding:10px 12px; border:1px solid var(--line); border-radius:3px;
+  background:var(--paper); margin-bottom:12px;
+}
+.post-form textarea{min-height:130px; resize:vertical;}
+.post-form-row{display:flex; gap:12px;}
+.post-form-row > *{flex:1;}
+.post-form-actions{display:flex; gap:10px; justify-content:flex-end;}
+.post-form-actions button{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500;
+  padding:9px 16px; border-radius:3px; cursor:pointer; border:1px solid var(--line);
+}
+.post-form-actions .save{background:var(--blue); border-color:var(--blue); color:var(--white);}
+.post-form-actions .cancel{background:transparent;}
+.posts{display:flex; flex-direction:column;}
+.post{border-top:1px solid var(--line-soft); padding:24px 0; display:grid; grid-template-columns:100px 1fr; gap:20px;}
+.post:first-child{border-top:none;}
+@media(max-width:600px){ .post{grid-template-columns:1fr; gap:6px;} }
+.post .date{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted); padding-top:3px;}
+.post .tag{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:var(--blue-deep); margin-bottom:5px;}
+.post h3{font-size:17.5px; color:var(--ink); margin-bottom:5px; font-weight:600; letter-spacing:0; cursor:pointer;}
+.post .excerpt{font-size:14.5px; color:#33415c;}
+.post .full{display:none; font-size:14.5px; color:#33415c; white-space:pre-wrap; margin-top:6px;}
+.post.expanded .excerpt{display:none;}
+.post.expanded .full{display:block;}
+.post .delete-x{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted); margin-top:8px; display:inline-block; cursor:pointer;}
+.post .delete-x:hover{color:#B23A32;}
+.empty-state{padding:30px 0; text-align:center; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:13px;}
+
+/* ---------- MY STORY ---------- */
+.story-body{font-size:16.5px; color:#33415c; max-width:640px;}
+.story-body p{margin-bottom:16px;}
+.placeholder-note{
+  font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted);
+  border:1px dashed var(--line); border-radius:4px; padding:18px 20px; max-width:640px;
+}
+
+/* ---------- CONTACT ---------- */
+.contact-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px;}
+@media(max-width:700px){ .contact-grid{grid-template-columns:1fr;} }
+.contact-grid p{color:var(--muted); font-size:15px; max-width:420px;}
+.contact-list{display:flex; flex-direction:column; gap:12px;}
+.contact-list a, .contact-list span{
+  font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--ink);
+  border-bottom:1px solid var(--line-soft); padding-bottom:9px;
+}
+.contact-list a:hover{color:var(--blue-deep);}
+
+footer{padding:28px 0; border-top:1px solid var(--line);}
+.foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted);}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Wyatt Race</div>
+    <div class="navlinks" id="navlinks">
+      <a href="index.html">Home</a>
+      <a href="my-story.html">My Story</a>
+      <a href="experience.html">Experience</a>
+      <a href="credentials.html">Credentials</a>
+      <a href="press-box.html" class="active">Press Box</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main>
+  <div class="page-header wrap">
+    <span class="eyebrow">Press Box</span>
+    <h1>Notes &amp; Writing</h1>
+    <p>Personal and professional notes — sports business, internship lessons, whatever's on my mind.</p>
+  </div>
+
+  <div class="page-body wrap">
+    <div class="blog-toolbar">
+      <p class="note">Posts save automatically as you write.</p>
+      <button class="new-post-btn" id="newPostBtn">+ New Post</button>
+    </div>
+
+    <div class="post-form" id="postForm">
+      <div class="post-form-row">
+        <input type="text" id="postTitle" placeholder="Post title">
+        <select id="postTag">
+          <option value="Sports Business">Sports Business</option>
+          <option value="Internship Notes">Internship Notes</option>
+          <option value="Personal">Personal</option>
+          <option value="Industry">Industry</option>
+        </select>
+      </div>
+      <textarea id="postBody" placeholder="Write your post..."></textarea>
+      <div class="post-form-actions">
+        <button class="cancel" id="cancelPost">Cancel</button>
+        <button class="save" id="savePost">Publish</button>
+      </div>
+    </div>
+
+    <div class="posts" id="postsList"></div>
+    <div class="empty-state" id="emptyState" style="display:none;">No posts yet — hit "+ New Post" to write your first one.</div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Wyatt Race</span>
+    <span>Southampton, NY · Chapel Hill, NC</span>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navlinks = document.getElementById('navlinks');
+  navToggle.addEventListener('click', () => navlinks.classList.toggle('open'));
+
+  const postForm = document.getElementById('postForm');
+  const newPostBtn = document.getElementById('newPostBtn');
+  const cancelPost = document.getElementById('cancelPost');
+  const savePost = document.getElementById('savePost');
+  const postsList = document.getElementById('postsList');
+  const emptyState = document.getElementById('emptyState');
+  const STORAGE_KEY = 'wyatt_race_blog_posts';
+  let posts = [];
+
+  newPostBtn.addEventListener('click', () => {
+    postForm.classList.add('open');
+    document.getElementById('postTitle').focus();
+  });
+  cancelPost.addEventListener('click', () => {
+    postForm.classList.remove('open');
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postBody').value = '';
+  });
+
+  function fmtDate(d){
+    return new Date(d).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+  }
+
+  function render(){
+    postsList.innerHTML = '';
+    if(posts.length === 0){
+      emptyState.style.display = 'block';
+      return;
+    }
+    emptyState.style.display = 'none';
+    posts.slice().sort((a,b)=> b.created - a.created).forEach(post => {
+      const el = document.createElement('div');
+      el.className = 'post';
+      el.dataset.id = post.id;
+      el.innerHTML = `
+        <div class="date">${fmtDate(post.created)}</div>
+        <div>
+          <span class="tag">${post.tag}</span>
+          <h3>${post.title}</h3>
+          <div class="excerpt">${post.body.slice(0,160)}${post.body.length>160?'…':''}</div>
+          <div class="full">${post.body}</div>
+          <span class="delete-x">delete</span>
+        </div>
+      `;
+      el.querySelector('h3').addEventListener('click', () => el.classList.toggle('expanded'));
+      el.querySelector('.delete-x').addEventListener('click', (e) => {
+        e.stopPropagation();
+        deletePost(post.id);
+      });
+      postsList.appendChild(el);
+    });
+  }
+
+  async function loadPosts(){
+    try{
+      const result = await window.storage.get(STORAGE_KEY, false);
+      posts = result ? JSON.parse(result.value) : [];
+    }catch(err){
+      posts = [];
+    }
+    render();
+  }
+
+  async function persist(){
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify(posts), false);
+    }catch(err){
+      console.warn('Storage unavailable — posts will not persist after refresh.', err);
+    }
+  }
+
+  savePost.addEventListener('click', async () => {
+    const title = document.getElementById('postTitle').value.trim();
+    const body = document.getElementById('postBody').value.trim();
+    const tag = document.getElementById('postTag').value;
+    if(!title || !body) return;
+    posts.push({ id: Date.now().toString(), title, body, tag, created: Date.now() });
+    await persist();
+    render();
+    postForm.classList.remove('open');
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postBody').value = '';
+  });
+
+  async function deletePost(id){
+    posts = posts.filter(p => p.id !== id);
+    await persist();
+    render();
+  }
+
+  loadPosts();
+</script>
+
+</body>
+</html>
